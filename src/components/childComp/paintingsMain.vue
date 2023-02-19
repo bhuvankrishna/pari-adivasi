@@ -1,48 +1,64 @@
 <template>
-  <div class="paintings-main-content">
-    <div v-for="data in userData" :key="data.id" class="paintings-card">
-      <div class="paintings-featured-image">
-        <a
-          href="https://newdevel.ruralindiaonline.org/en/childrens-paintings/abhinash-munda/"
-          ><img
-            :src="`https://beta.ruralindiaonline.org/api${data.attributes.Painting.data.attributes.url}`"
-            class="attachment-medium size-medium wp-post-image"
-            alt=""
-            width="300"
-            height="234"
-            decoding="async"
-            loading="lazy"
+  <div>
+    <div class="paintings-main-content" id="paintings-main">
+      <div v-for="data in cardsToDisplay" :key="data.id" class="paintings-card">
+        <div class="paintings-featured-image">
+          <a @click="redirect(data.id, true)"
+            ><img
+              :src="`https://beta.ruralindiaonline.org/api${data.attributes.Painting.data.attributes.url}`"
+              class="attachment-medium size-medium wp-post-image"
+              alt=""
+              width="300"
+              height="234"
+              decoding="async"
+              loading="lazy"
+          /></a>
+        </div>
+        <a @click="redirect(data.id, false)">
+          <img
+            class="paintings-painter-img"
+            :src="`https://beta.ruralindiaonline.org/api${data.attributes.ChildPhoto.data.attributes.url}`"
         /></a>
+        <div class="paintings-painter-name">
+          <h2 class="entry-title">
+            <a
+              @click="redirect(data.id, true)"
+              :title="data.attributes.Name"
+              rel="bookmark"
+              >{{ data.attributes.Name }}</a
+            >
+          </h2>
+        </div>
       </div>
-      <a
-        href="https://newdevel.ruralindiaonline.org/en/childrens-paintings/abhinash-munda/"
-      >
-        <img
-          class="paintings-painter-img"
-          :src="`https://beta.ruralindiaonline.org/api${data.attributes.ChildPhoto.data.attributes.url}`"
-      /></a>
-      <div class="paintings-painter-name">
-        <h2 class="entry-title">
-          <a
-            href="https://newdevel.ruralindiaonline.org/en/childrens-paintings/abhinash-munda/"
-            title="Abhinash Munda"
-            rel="bookmark"
-            >{{ data.attributes.Name }}</a
-          >
-        </h2>
-      </div>
+    </div>
+    <div class="paginationStyle">
+      <VueTailwindPagination
+        :current="currentPage"
+        :total="rowLength"
+        :per-page="perPage"
+        @page-changed="onPageClick($event)"
+      ></VueTailwindPagination>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import "@ocrv/vue-tailwind-pagination/styles";
+import VueTailwindPagination from "@ocrv/vue-tailwind-pagination";
 export default {
   name: "paintingsMain",
   data() {
     return {
       userData: [],
+      currentPage: 0,
+      perPage: 4,
+      rowLength: 0,
+      cardsToDisplay: [],
     };
+  },
+  components: {
+    VueTailwindPagination,
   },
   methods: {
     async fetchApi() {
@@ -54,21 +70,43 @@ export default {
       };
       await axios
         .get(
-          "https://beta.ruralindiaonline.org/api/api/childrens-paintings?populate=Painting,ChildPhoto",
+          `https://beta.ruralindiaonline.org/api/api/childrens-paintings?populate=Painting,ChildPhoto,page=${this.currentPage}`,
           { headers }
         )
         .then((response) => {
           this.userData = JSON.parse(JSON.stringify(response.data.data));
+          this.rowLength = this.userData.length;
+          this.cardsToDisplay = this.userData.slice(
+            (this.currentPage - 1) * this.perPage,
+            this.currentPage * this.perPage
+          );
         });
+    },
+    redirect(id, value) {
+      this.$router.push({
+        path: "/en/childrens-paintings/" + id,
+        query: {
+          image: value,
+        },
+      });
+      console.log(this.userData);
+    },
+    onPageClick(pageNumber) {
+      this.currentPage = pageNumber;
+      this.fetchApi();
     },
   },
   mounted() {
+    this.currentPage = 1;
     this.fetchApi();
   },
 };
 </script>
 
 <style>
+.paginationStyle {
+  padding-top: 4px;
+}
 h3 {
   margin: 40px 0 0;
 }
