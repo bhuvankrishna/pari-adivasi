@@ -129,7 +129,6 @@ export default {
     async fetchApiDetails() {
       const id = this.$route.params.id;
       this.isImage = this.$route.query.image;
-      //console.log("id type", isImage);
       const token =
         "e6cac262860592af3ab95de2c732f124f6d0d70c67882ab3864e6a457489cb1ad252fce7848c46f8d775ad03fd3fb9652cfcf989dfb761658af7d97f1de144eeb7f5fb4ab9ec6e5fbc4137d74f14f29fcca90b7cec578ee0b58df9a0147941586e9626b6e007d0710140beed7dd9a2664807fb7077efa3d591b0253424d49f31";
       const headers = {
@@ -143,22 +142,17 @@ export default {
         )
         .then((response) => {
           this.userData = JSON.parse(JSON.stringify(response.data.data));
-          //console.log("id111", this.userData);
 
           this.dataToDisplay = this.userData.find(
             (element) => element.id.toString() === id
           );
-          //console.log(this.dataToDisplay);
           this.attributesToDisplay = this.dataToDisplay.attributes;
           this.image = this.attributesToDisplay.Painting;
-
-          //console.log("attributes", this.image);
         });
     },
   },
   created() {
     this.fetchApiDetails();
-    //console.log(this.name);
   },
 };
 </script>
@@ -192,9 +186,6 @@ export default {
   width: 25%;
 }
 
-.image-container .image-section .slide-image a > iframe {
-  width: 25%;
-}
 .painters-description {
   padding: 4.5em;
   border-left: 2px solid darkgray;

@@ -44,7 +44,6 @@
 
 <script>
 import axios from "axios";
-//import "@ocrv/vue-tailwind-pagination/dist/style.css";
 import "@ocrv/vue-tailwind-pagination/styles";
 import VueTailwindPagination from "@ocrv/vue-tailwind-pagination";
 export default {
