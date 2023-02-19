@@ -2,8 +2,7 @@
   <div class="paintings-main-content">
     <div v-for="data in userData" :key="data.id" class="paintings-card">
       <div class="paintings-featured-image">
-        <a
-          href="https://newdevel.ruralindiaonline.org/en/childrens-paintings/abhinash-munda/"
+        <a @click="redirect(data.id, true)"
           ><img
             :src="`https://beta.ruralindiaonline.org/api${data.attributes.Painting.data.attributes.url}`"
             class="attachment-medium size-medium wp-post-image"
@@ -14,9 +13,7 @@
             loading="lazy"
         /></a>
       </div>
-      <a
-        href="https://newdevel.ruralindiaonline.org/en/childrens-paintings/abhinash-munda/"
-      >
+      <a @click="redirect(data.id, false)">
         <img
           class="paintings-painter-img"
           :src="`https://beta.ruralindiaonline.org/api${data.attributes.ChildPhoto.data.attributes.url}`"
@@ -24,8 +21,8 @@
       <div class="paintings-painter-name">
         <h2 class="entry-title">
           <a
-            href="https://newdevel.ruralindiaonline.org/en/childrens-paintings/abhinash-munda/"
-            title="Abhinash Munda"
+            @click="redirect(data.id, true)"
+            :title="data.attributes.Name"
             rel="bookmark"
             >{{ data.attributes.Name }}</a
           >
@@ -60,6 +57,15 @@ export default {
         .then((response) => {
           this.userData = JSON.parse(JSON.stringify(response.data.data));
         });
+    },
+    redirect(id, value) {
+      this.$router.push({
+        path: "/en/childrens-paintings/" + id,
+        query: {
+          image: value,
+        },
+      });
+      console.log(value);
     },
   },
   mounted() {
