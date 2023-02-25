@@ -1,15 +1,32 @@
+
 <template>
   <div class="image-container">
     <div class="image-content">
       <div class="image-section">
-        <div v-if="isImage" class="main-image">
-          <a href="#"
-            ><img
-              :src="`https://beta.ruralindiaonline.org/api${attributesToDisplay.Painting.data.attributes.url}`"
-              :alt="attributesToDisplay.Painting.data.attributes.hash"
-              :title="attributesToDisplay.Painting.data.attributes.hash"
-          /></a>
-        </div>
+
+        <CCarousel controls indicators transition="slide">
+          <CCarouselItem>
+            <div v-if="isImage" class="main-image" id="image">
+              <a href="#"
+                ><img
+                    :src="`https://beta.ruralindiaonline.org/api${attributesToDisplay.Painting.data.attributes.url}`"
+                    :alt="attributesToDisplay.Painting.data.attributes.hash"
+                    :title="attributesToDisplay.Painting.data.attributes.hash"
+                /></a>
+              </div>
+          </CCarouselItem>
+          <CCarouselItem>
+              <div v-if="isImage" class="main-image" id="video">
+                <a href="#"
+                  ><img
+                    :src="`https://img.youtube.com/vi/${attributesToDisplay.VideoID}/0.jpg`"
+                    :alt="attributesToDisplay.Painting.data.attributes.hash"
+                    :title="attributesToDisplay.Painting.data.attributes.hash"
+                /></a>
+              </div>
+          </CCarouselItem>
+        </CCarousel>
+
         <div v-if="!isImage" class="main-image">
           <a href="#"
             ><img
@@ -27,12 +44,17 @@
               style=""
           /></a>
           <a href="#"
-            ><img
-              src="https://beta.ruralindiaonline.org/api/uploads/003_Alpana_Munda_83cd51d7bd.jpg"
-              :alt="attributesToDisplay.Painting.data.attributes.hash"
-              :title="attributesToDisplay.Painting.data.attributes.hash"
-              style=""
-          /></a>
+            >
+            <div class="img">
+              <i class="bi bi-play-circle"></i>
+              <img
+                :src="`https://img.youtube.com/vi/${attributesToDisplay.VideoID}/0.jpg`"
+                :alt="attributesToDisplay.Painting.data.attributes.hash"
+                :title="attributesToDisplay.Painting.data.attributes.hash"
+                style=""
+              />
+            </div>
+          </a>
         </div>
       </div>
       <div class="painters-description">
@@ -114,8 +136,15 @@
 
 <script>
 import axios from "axios";
+import { CCarousel, CCarouselItem } from '@coreui/bootstrap-vue';
 
 export default {
+  name: "detailsPage",
+  components: {
+    CCarousel,
+    CCarouselItem,
+  },
+
   data() {
     return {
       dataToDisplay: [],
@@ -157,6 +186,17 @@ export default {
 };
 </script>
 <style>
+.img {
+  position: relative;
+}
+
+.img i {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
 .image-content {
   display: grid;
   grid-template-columns: 53% 45%;
