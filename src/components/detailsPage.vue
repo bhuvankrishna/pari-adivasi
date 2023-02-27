@@ -3,49 +3,68 @@
   <div class="image-container">
     <div class="image-content">
       <div class="image-section">
-
-        <CCarousel controls indicators transition="slide">
-          <CCarouselItem>
-            <div v-if="isImage" class="main-image" id="image">
-              <a href="#"
-                ><img
-                    :src="`https://beta.ruralindiaonline.org/api${attributesToDisplay.Painting.data.attributes.url}`"
-                    :alt="attributesToDisplay.Painting.data.attributes.hash"
-                    :title="attributesToDisplay.Painting.data.attributes.hash"
-                /></a>
-              </div>
-          </CCarouselItem>
-          <CCarouselItem>
-              <div v-if="isImage" class="main-image" id="video">
+        <div v-if="!showVideo" class="carousel-section">
+          <CCarousel controls indicators transition="slide">
+            <CCarouselItem>
+              <div class="main-image" id="image">
                 <a href="#"
                   ><img
-                    :src="`https://img.youtube.com/vi/${attributesToDisplay.VideoID}/0.jpg`"
-                    :alt="attributesToDisplay.Painting.data.attributes.hash"
-                    :title="attributesToDisplay.Painting.data.attributes.hash"
-                /></a>
-              </div>
-          </CCarouselItem>
-        </CCarousel>
-
-        <div v-if="!isImage" class="main-image">
-          <a href="#"
-            ><img
-              src="https://beta.ruralindiaonline.org/api/uploads/003_Alpana_Munda_83cd51d7bd.jpg"
-              :alt="attributesToDisplay.Painting.data.attributes.hash"
-              :title="attributesToDisplay.Painting.data.attributes.hash"
-          /></a>
+                      :src="`https://beta.ruralindiaonline.org/api${attributesToDisplay.Painting.data.attributes.url}`"
+                      :alt="attributesToDisplay.Painting.data.attributes.hash"
+                      :title="attributesToDisplay.Painting.data.attributes.hash"
+                  /></a>
+                </div>
+            </CCarouselItem>
+            <CCarouselItem>
+                <div class="main-image" id="video">
+                  <a href="#"
+                    ><img
+                      :src="`https://img.youtube.com/vi/${attributesToDisplay.VideoID}/0.jpg`"
+                      :alt="attributesToDisplay.Painting.data.attributes.hash"
+                      :title="attributesToDisplay.Painting.data.attributes.hash"
+                  /></a>
+                </div>
+            </CCarouselItem>
+          </CCarousel>
+        </div>
+        <div v-if="showVideo" class="carousel-section">
+          <CCarousel controls indicators transition="slide">
+            <CCarouselItem>
+                <div class="main-image" id="video">
+                  <a href="#"
+                    ><img
+                      :src="`https://img.youtube.com/vi/${attributesToDisplay.VideoID}/0.jpg`"
+                      :alt="attributesToDisplay.Painting.data.attributes.hash"
+                      :title="attributesToDisplay.Painting.data.attributes.hash"
+                  /></a>
+                </div>
+            </CCarouselItem>
+            <CCarouselItem>
+              <div class="main-image" id="image">
+                <a href="#"
+                  ><img
+                      :src="`https://beta.ruralindiaonline.org/api${attributesToDisplay.Painting.data.attributes.url}`"
+                      :alt="attributesToDisplay.Painting.data.attributes.hash"
+                      :title="attributesToDisplay.Painting.data.attributes.hash"
+                  /></a>
+                </div>
+            </CCarouselItem>
+          </CCarousel>
         </div>
         <div class="slide-image">
           <a href="#"
-            ><img
+            >
+            <div class="img">
+            <img
               :src="`https://beta.ruralindiaonline.org/api${attributesToDisplay.Painting.data.attributes.url}`"
               :alt="attributesToDisplay.Painting.data.attributes.hash"
               :title="attributesToDisplay.Painting.data.attributes.hash"
               style=""
-          /></a>
+          /></div>
+          </a>
           <a href="#"
             >
-            <div class="img">
+            <div class="video-thumbnail">
               <i class="bi bi-play-circle"></i>
               <img
                 :src="`https://img.youtube.com/vi/${attributesToDisplay.VideoID}/0.jpg`"
@@ -150,14 +169,15 @@ export default {
       dataToDisplay: [],
       attributesToDisplay: [],
       image: "",
-      isImage: null,
+      showVideo: null,
     };
   },
 
   methods: {
     async fetchApiDetails() {
       const id = this.$route.params.id;
-      this.isImage = this.$route.query.image;
+      // const url = this.$route.params.url;
+      const showVideo = this.$route.query.showVideo;
       const token =
         "e6cac262860592af3ab95de2c732f124f6d0d70c67882ab3864e6a457489cb1ad252fce7848c46f8d775ad03fd3fb9652cfcf989dfb761658af7d97f1de144eeb7f5fb4ab9ec6e5fbc4137d74f14f29fcca90b7cec578ee0b58df9a0147941586e9626b6e007d0710140beed7dd9a2664807fb7077efa3d591b0253424d49f31";
       const headers = {
@@ -175,8 +195,10 @@ export default {
           this.dataToDisplay = this.userData.find(
             (element) => element.id.toString() === id
           );
+            
           this.attributesToDisplay = this.dataToDisplay.attributes;
           this.image = this.attributesToDisplay.Painting;
+          this.showVideo = showVideo;
         });
     },
   },
@@ -186,11 +208,11 @@ export default {
 };
 </script>
 <style>
-.img {
+.video-thumbnail {
   position: relative;
 }
 
-.img i {
+.video-thumbnail i {
   top: 50%;
   left: 50%;
   position: absolute;
@@ -222,7 +244,7 @@ export default {
   text-align: center;
   margin-top: 20px;
 }
-.image-container .image-section .slide-image a > img {
+.image-container .image-section .slide-image a div > img {
   width: 25%;
 }
 

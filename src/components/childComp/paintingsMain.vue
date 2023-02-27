@@ -3,7 +3,7 @@
     <div class="paintings-main-content" id="paintings-main">
       <div v-for="data in cardsToDisplay" :key="data.id" class="paintings-card">
         <div class="paintings-featured-image">
-          <a @click="redirect(data.id, true)"
+          <a @click="redirect(data.id)"
             ><img
               :src="`https://beta.ruralindiaonline.org/api${data.attributes.Painting.data.attributes.url}`"
               class="attachment-medium size-medium wp-post-image"
@@ -14,7 +14,7 @@
               loading="lazy"
           /></a>
         </div>
-        <a @click="redirect(data.id, false)">
+        <a @click="redirect(data.id, true)">
           <img
             class="paintings-painter-img"
             :src="`https://beta.ruralindiaonline.org/api${data.attributes.ChildPhoto.data.attributes.url}`"
@@ -22,7 +22,7 @@
         <div class="paintings-painter-name">
           <h2 class="entry-title">
             <a
-              @click="redirect(data.id, true)"
+              @click="redirect(data.id)"
               :title="data.attributes.Name"
               rel="bookmark"
               >{{ data.attributes.Name }}</a
@@ -86,7 +86,7 @@ export default {
       this.$router.push({
         path: "/en/childrens-paintings/" + id,
         query: {
-          image: value,
+          showVideo: value,
         },
       });
       console.log(this.userData);

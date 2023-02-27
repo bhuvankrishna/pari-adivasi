@@ -15,7 +15,7 @@ export default {
   components: {
     paintingsMain,
     headingTitle,
-  },
+  }
 };
 </script>
 <style>
