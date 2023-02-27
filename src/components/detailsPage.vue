@@ -1,5 +1,8 @@
 
 <template>
+    <header-block></header-block>
+  <section id="services" class="services">
+    <div class="container">
   <div class="image-container">
     <div class="image-content">
       <div class="image-section">
@@ -151,17 +154,26 @@
       </div>
     </div>
   </div>
+</div>
+</section>
+  <footer-block></footer-block>
+
 </template>
 
 <script>
 import axios from "axios";
 import { CCarousel, CCarouselItem } from '@coreui/bootstrap-vue';
 
+import headerBlock from './headerBlock.vue';
+import footerBlock from './footerBlock.vue';
+
 export default {
   name: "detailsPage",
   components: {
     CCarousel,
     CCarouselItem,
+    headerBlock,
+    footerBlock
   },
 
   data() {

@@ -7,6 +7,8 @@ import {
 } from "vue-router";
 
 import App from "./App.vue";
+import headerBlock from './components/headerBlock.vue';
+import footerBlock from './components/footerBlock.vue';
 import paintingsMain from "./components/childComp/headingTitle.vue";
 import headingTitle from "./components/childComp/paintingsMain.vue";
 import paintingsPage from "./components/paintingsPage.vue";
@@ -30,6 +32,7 @@ const router = createRouter({
     ],
 });
 
+
 const app = createApp(App);
 
 app.use(router);
@@ -37,4 +40,7 @@ app.component("paintings-main", paintingsMain);
 app.component("heading-title", headingTitle);
 app.component("paintings-page", paintingsPage);
 app.component("details-page", detailsPage);
+app.component('header-block', headerBlock);
+app.component('footer-block', footerBlock);
+
 app.mount("#app");
