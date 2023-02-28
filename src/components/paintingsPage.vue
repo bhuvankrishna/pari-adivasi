@@ -1,17 +1,14 @@
 <template>
-  <header-block></header-block>
   <section id="services" class="services">
     <div class="container">
       <heading-title></heading-title>
       <paintings-main></paintings-main>
     </div>
   </section>
-  <footer-block></footer-block>
 </template>
 
 <script>
-import headerBlock from './headerBlock.vue';
-import footerBlock from './footerBlock.vue';
+
 import paintingsMain from "./childComp/paintingsMain.vue";
 import headingTitle from "./childComp/headingTitle.vue";
 
@@ -20,8 +17,6 @@ export default {
   components: {
     paintingsMain,
     headingTitle,
-    headerBlock,
-    footerBlock
   }
 };
 </script>
