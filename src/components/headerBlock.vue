@@ -387,9 +387,70 @@
       </div>
     </div>
 </template>
+
 <script>
-export default {};
+// import "../assets/js/jquery-3.1.1.min.js";
+
+// import "../assets/js/lazysizes.min.js";
+
+// import "../assets/js/bootstrap.js";
+
+export default {
+
+  head: {
+      script: [
+        { type: 'text/javascript', src: './../assets/js/jquery-3.1.1.min.js', async: true, body: true},
+        { type: 'text/javascript', src: './../assets/js/lazysizes.min.js', async: true, body: true}, // Insert in body
+        { type: 'text/javascript', src: './../assets/js/bootstrap.js', async: true, body: true}, // Insert in body
+        { type: 'text/javascript', src: './../assets/js/output.js', async: true, body: true}, // Insert in body
+        { type: 'text/javascript', src: './../assets/js/output.d0a4ad7cf1f2.js', async: true, body: true}, // Insert in body
+        { type: 'text/javascript', src: './../assets/js/jsrender.min.js', async: true, body: true}, // Insert in body
+        { type: 'text/javascript', src: './../assets/js/packery-mode.pkgd.min.js', async: true, body: true}, // Insert in body
+        { type: 'text/javascript', src: './../assets/js/retina.min.js', async: true, body: true}, // Insert in body
+
+        // with shorthand
+        { t: 'application/ld+json', i: '{ "@context": "http://schema.org" }' },
+        // ...
+      ],
+    }
+
+  // mounted() {
+  //   let ScriptA = document.createElement("script");
+  //   ScriptA.setAttribute("src", "./../assets/js/jquery-3.1.1.min.js");
+  //   document.head.appendChild(ScriptA);
+
+  //   let ScriptB = document.createElement("script");
+  //   ScriptB.setAttribute("src", "./../assets/js/lazysizes.min.js");
+  //   document.head.appendChild(ScriptB);
+
+  //   let ScriptC = document.createElement("script");
+  //   ScriptC.setAttribute("src", "./../assets/js/bootstrap.js");
+  //   document.head.appendChild(ScriptC);
+
+  //   let ScriptD = document.createElement("script");
+  //   ScriptD.setAttribute("src", "./../assets/js/output.js");
+  //   document.head.appendChild(ScriptD);
+
+  //   let ScriptE = document.createElement("script");
+  //   ScriptE.setAttribute("src", "./../assets/js/output.d0a4ad7cf1f2.js");
+  //   document.head.appendChild(ScriptE);
+
+  //   let ScriptF = document.createElement("script");
+  //   ScriptF.setAttribute("src", "./../assets/js/jsrender.min.js");
+  //   document.head.appendChild(ScriptF);
+
+  //   let ScriptG = document.createElement("script");
+  //   ScriptG.setAttribute("src", "./../assets/js/packery-mode.pkgd.min.js");
+  //   document.head.appendChild(ScriptG);
+
+  //   let ScriptH = document.createElement("script");
+  //   ScriptH.setAttribute("src", "./../assets/js/retina.min.js");
+  //   document.head.appendChild(ScriptH);
+  // }
+};
 </script>
 <style scoped>
 @import url("../assets/css/styles.css");
+@import url("../assets/css/bootstrap.css");
+
 </style>
